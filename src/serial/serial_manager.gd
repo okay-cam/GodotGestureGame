@@ -42,5 +42,19 @@ func _process(_delta: float) -> void:
 	
 	await get_tree().create_timer(0.1).timeout
 	if serial.bytes_available() > 0:
-		var response = serial.readline()
-		print("Response: ", response)
+		var raw_response = serial.readline()
+		var response = raw_response.split(":")
+		
+		match response[0]:
+			"gesture":
+				handle_gesture(response[1])
+			"cm":
+				handle_hand_distance(response[1])
+			"hand":
+				handle_hand_presense()
+			_:
+				printerr("response not recognised: " + response[1])
+			
+
+func handle_gesture(gesture : String):
+	pass
