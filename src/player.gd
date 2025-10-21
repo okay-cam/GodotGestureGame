@@ -27,7 +27,36 @@ const CEILING_HEIGHT := 60
 
 
 func _ready() -> void:
-	pass
+	# connect to serial manager by default
+	SerialManager.gesture.connect(_on_gesture)
+	SerialManager.hand_distance.connect(_on_hand_distance)
+	SerialManager.hand_present.connect(_on_hand_present)
+
+
+func _on_gesture(gesture : String) -> void:
+	match gesture:
+		"left":
+			Input.action_press("left_force")
+			Input.action_release("left_force")
+		"right":
+			Input.action_press("right_force")
+			Input.action_release("right_force")
+	
+
+func _on_hand_distance(distance : float) -> void:
+	hand_height = distance
+
+
+func _on_hand_present(is_present : bool) -> void:
+	
+	# !! unused for now.
+	
+	if is_present:
+		pass
+	
+	pass # Replace with function body.
+
+
 
 func _physics_process(_delta: float) -> void:
 	
@@ -43,11 +72,11 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_pressed("hold") and held_object:
 		# --- motion constants
-		var hand_multiplier := 1.0  # how much to multiply real-life distance to in-game distance
+		var hand_multiplier := 0.5  # how much to multiply real-life distance to in-game distance
 		# goal height should be how much the hand moves after holding the object
 		var goal_height = initial_object_height + (hand_height - initial_hand_height) * hand_multiplier
-		var stiffness = 50.0  # how strong the pull is
-		var damping = 10.0    # how much velocity is damped
+		var stiffness = 75.0  # how strong the pull is
+		var damping = 20.0    # how much velocity is damped
 		# ---
 		
 		var current_pos = held_object.global_transform.origin

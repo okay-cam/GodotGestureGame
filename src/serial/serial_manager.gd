@@ -2,6 +2,10 @@ extends Node
 
 var serial: GdSerial
 
+signal gesture
+signal hand_distance
+signal hand_present
+
 func _ready():
 	# Create serial instance
 	serial = GdSerial.new()
@@ -44,17 +48,25 @@ func _process(_delta: float) -> void:
 	if serial.bytes_available() > 0:
 		var raw_response = serial.readline()
 		var response = raw_response.split(":")
+		print("received: " + raw_response)
 		
 		match response[0]:
 			"gesture":
-				handle_gesture(response[1])
+				_handle_gesture(response[1])
 			"cm":
-				handle_hand_distance(response[1])
+				_handle_hand_distance(response[1])
 			"hand":
-				handle_hand_presense()
+				_handle_hand_presence(response[1])
 			_:
 				printerr("response not recognised: " + response[1])
 			
 
-func handle_gesture(gesture : String):
-	pass
+func _handle_gesture(gesture_name : String):
+	gesture.emit(gesture_name.to_lower())
+
+func _handle_hand_distance(distance_value : String):
+	hand_distance.emit(float(distance_value))
+
+func _handle_hand_presence(hand_presence_value : String):
+	var hand_present_bool : bool = hand_presence_value.to_lower() == "true"
+	hand_present.emit(hand_present_bool)

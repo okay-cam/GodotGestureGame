@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=3 uid="uid://cu3vix21alpyc"]
+[gd_scene load_steps=11 format=3 uid="uid://cu3vix21alpyc"]
 
-[ext_resource type="PackedScene" uid="uid://bvqh7qx6es22x" path="res://src/serial/serial_manager.tscn" id="1_bexhn"]
 [ext_resource type="Script" uid="uid://d4fnko62vebpj" path="res://src/player.gd" id="1_t7iv1"]
 [ext_resource type="Script" uid="uid://cp2l0qbucetd2" path="res://src/rigid_object.gd" id="2_2nifc"]
 [ext_resource type="Script" uid="uid://b1j6oyh4rq4a1" path="res://src/mouse_selector.gd" id="2_6flpr"]
@@ -80,8 +79,6 @@ material_override = SubResource("StandardMaterial3D_bexhn")
 use_collision = true
 collision_mask = 0
 size = Vector3(30, 1, 30)
-
-[node name="SerialManager" parent="." instance=ExtResource("1_bexhn")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.3535534, 0.3535534, 0, 0.70710677, 0.70710677, -0.50000006, 0.6123724, -0.6123724, 8, 7, -8)
