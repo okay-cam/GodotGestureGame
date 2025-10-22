@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cu3vix21alpyc"]
+[gd_scene load_steps=15 format=3 uid="uid://cu3vix21alpyc"]
 
 [ext_resource type="Script" uid="uid://d4fnko62vebpj" path="res://src/player.gd" id="1_t7iv1"]
 [ext_resource type="Script" uid="uid://cp2l0qbucetd2" path="res://src/rigid_object.gd" id="2_2nifc"]
 [ext_resource type="Script" uid="uid://b1j6oyh4rq4a1" path="res://src/mouse_selector.gd" id="2_6flpr"]
+[ext_resource type="Script" uid="uid://coq00h74b3m3w" path="res://src/cooldown.gd" id="3_6flpr"]
+[ext_resource type="Script" uid="uid://chahy17in4ehf" path="res://src/control.gd" id="5_a8icf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bexhn"]
 
@@ -27,6 +29,31 @@ albedo_color = Color(0.42941076, 0.2850655, 0.23733261, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bexhn"]
 albedo_color = Color(0.23700002, 0.25905, 0.3, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1brxq"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 6
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8icf"]
+bg_color = Color(0.47, 0.47, 0.47, 1)
+anti_aliasing = false
+
 [node name="Level" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -39,13 +66,18 @@ test_object_path = NodePath("../RigidBarrel")
 metadata/_edit_group_ = true
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.9848077, -0.17364818, 0, 0.17364818, 0.9848077, 0, 0, 0)
+fov = 70.0
 
 [node name="MouseSelector" type="Node3D" parent="Player"]
 script = ExtResource("2_6flpr")
 camera_path = NodePath("../Camera3D")
 
+[node name="Cooldown" type="Node3D" parent="Player"]
+script = ExtResource("3_6flpr")
+
 [node name="RigidBarrel" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -5)
 collision_layer = 2
 axis_lock_linear_z = true
 axis_lock_angular_y = true
@@ -66,6 +98,28 @@ collision_mask = 0
 [node name="Collision" type="CollisionShape3D" parent="RigidBarrel/Selection"]
 shape = SubResource("CylinderShape3D_6flpr")
 
+[node name="RigidBarrel2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -11)
+collision_layer = 2
+axis_lock_linear_z = true
+axis_lock_angular_y = true
+script = ExtResource("2_2nifc")
+metadata/_edit_group_ = true
+
+[node name="Cylinder" type="CSGCylinder3D" parent="RigidBarrel2"]
+radius = 0.4
+height = 1.0
+
+[node name="Collision" type="CollisionShape3D" parent="RigidBarrel2"]
+shape = SubResource("CylinderShape3D_bexhn")
+
+[node name="Selection" type="Area3D" parent="RigidBarrel2"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="Collision" type="CollisionShape3D" parent="RigidBarrel2/Selection"]
+shape = SubResource("CylinderShape3D_6flpr")
+
 [node name="Wall" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 4, -8)
 material_override = SubResource("StandardMaterial3D_t7iv1")
@@ -83,3 +137,33 @@ size = Vector3(30, 1, 30)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.3535534, 0.3535534, 0, 0.70710677, 0.70710677, -0.50000006, 0.6123724, -0.6123724, 8, 7, -8)
 shadow_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_a8icf")
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 228.0
+offset_top = -67.0
+offset_right = -228.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_1brxq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a8icf")
+value = 50.0
+show_percentage = false
+
+[connection signal="cooldown_changed" from="Player/Cooldown" to="UI/Control" method="_on_cooldown_changed"]

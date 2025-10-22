@@ -4,7 +4,12 @@ var serial: GdSerial
 
 signal gesture
 signal hand_distance
+# signal when hand becomes present or if gone for long time
+# maybe unused?
 signal hand_present
+
+# if hand is gone for short timer length, then false
+var is_hand_very_present
 
 func _ready():
 	# Create serial instance
@@ -48,7 +53,7 @@ func _process(_delta: float) -> void:
 	if serial.bytes_available() > 0:
 		var raw_response = serial.readline()
 		var response = raw_response.split(":")
-		print("received: " + raw_response)
+		#print("received: " + raw_response)
 		
 		match response[0]:
 			"gesture":
@@ -57,8 +62,10 @@ func _process(_delta: float) -> void:
 				_handle_hand_distance(response[1])
 			"hand":
 				_handle_hand_presence(response[1])
+			"gd":
+				pass
 			_:
-				printerr("response not recognised: " + response[1])
+				printerr("response not recognised: " + str(response))
 			
 
 func _handle_gesture(gesture_name : String):
@@ -66,7 +73,19 @@ func _handle_gesture(gesture_name : String):
 
 func _handle_hand_distance(distance_value : String):
 	hand_distance.emit(float(distance_value))
-
+	
+	$HandVeryPresentTimer.start()
+	is_hand_very_present = true
+	
 func _handle_hand_presence(hand_presence_value : String):
 	var hand_present_bool : bool = hand_presence_value.to_lower() == "true"
 	hand_present.emit(hand_present_bool)
+
+func _on_hand_very_present_timeout() -> void:
+	is_hand_very_present = false
+
+func send(info : String):
+	
+	serial.writeline(info)
+	
+	pass

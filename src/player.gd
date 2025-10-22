@@ -4,11 +4,10 @@ extends Node3D
 @onready var test_object : RigidBody3D = get_node(test_object_path)
 @onready var mouse_selector := $MouseSelector
 
+@onready var cooldown := $Cooldown
+
 # store object if held with right click
 var held_object = null
-# store the initial object height to find relative height change
-var initial_object_height : float = 0.0
-var initial_object_x : float = 0.0
 
 # debug hand height variable (cm)
 var hand_height = 5
@@ -34,6 +33,9 @@ func _ready() -> void:
 
 
 func _on_gesture(gesture : String) -> void:
+	
+	if cooldown.is_charging(): return
+	
 	match gesture:
 		"left":
 			Input.action_press("left_force")
@@ -65,19 +67,23 @@ func _physics_process(_delta: float) -> void:
 		var selection = mouse_selector.select()
 		if not selection: return
 		held_object = selection["object"]
-		
-		initial_hand_height = hand_height
-		initial_object_height = held_object.global_transform.origin.y
-		initial_object_x = held_object.global_transform.origin.x
 	
 	if Input.is_action_pressed("hold") and held_object:
 		# --- motion constants
-		var hand_multiplier := 0.5  # how much to multiply real-life distance to in-game distance
-		# goal height should be how much the hand moves after holding the object
-		var goal_height = initial_object_height + (hand_height - initial_hand_height) * hand_multiplier
+		var hand_multiplier := 0.03  # how much to multiply real-life distance to in-game distance
 		var stiffness = 50.0  # how strong the pull is
 		var damping = 15.0    # how much velocity is damped
 		# ---
+		
+		# objects further away should move more
+		var distance_factor = 1.0 # how many units away for 100% increase
+		var z_distance = absf(global_transform.origin.z - held_object.global_transform.origin.z)
+		
+		# goal height is the hand height. bigger if the object is further.
+		var goal_height = (hand_height-5) * hand_multiplier * (1 + z_distance / distance_factor)
+		
+		# keep object at roughly same x
+		var goal_x = held_object.global_transform.origin.x
 		
 		var current_pos = held_object.global_transform.origin
 		var velocity = held_object.linear_velocity
@@ -85,8 +91,8 @@ func _physics_process(_delta: float) -> void:
 		# PD control
 		# move y to certain height
 		var force_y = stiffness * (goal_height - current_pos.y) - damping * velocity.y
-		# keep x the same
-		var force_x = stiffness * (initial_object_x - current_pos.x) - damping * velocity.x
+		# keep x roughly the same
+		var force_x = stiffness * (goal_x - current_pos.x) - damping * velocity.x
 		
 		
 		# Apply force only in the y-axis
@@ -112,6 +118,8 @@ func _physics_process(_delta: float) -> void:
 		var selection = mouse_selector.select()
 		if not selection: return
 		
+		cooldown.start()
+		
 		#selection["object"].apply_impulse(Vector3(-10, 1, 0), selection["position"])
 		selection["object"].apply_central_impulse(Vector3(-10, 1, 0))
 		
@@ -120,6 +128,8 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("right_force"):
 		var selection = mouse_selector.select()
 		if not selection: return
+		
+		cooldown.start()
 		
 		selection["object"].apply_central_impulse(Vector3(10, 1, 0))
 		
