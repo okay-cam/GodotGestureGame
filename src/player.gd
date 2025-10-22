@@ -63,7 +63,7 @@ func _on_hand_present(is_present : bool) -> void:
 func _physics_process(_delta: float) -> void:
 	
 	# !! only run holding if hand is in range too
-	if Input.is_action_pressed("hold") and not held_object:
+	if Input.is_action_just_pressed("hold") and not held_object:
 		var selection = mouse_selector.select()
 		if not selection: return
 		held_object = selection["object"]
@@ -115,25 +115,32 @@ func _physics_process(_delta: float) -> void:
 		print("hand height: " + str(hand_height))
 	
 	if Input.is_action_just_pressed("left_force"):
-		var selection = mouse_selector.select()
-		if not selection: return
+		var object = get_priority_object()
+		if not object: return
 		
 		cooldown.start()
 		
 		#selection["object"].apply_impulse(Vector3(-10, 1, 0), selection["position"])
-		selection["object"].apply_central_impulse(Vector3(-10, 1, 0))
+		object.apply_central_impulse(Vector3(-10, 1, 0))
 		
-		#test_object.apply_central_impulse(Vector3(-10, 1, 0))
+		release_held_object()
 	
 	if Input.is_action_just_pressed("right_force"):
-		var selection = mouse_selector.select()
-		if not selection: return
+		var object = get_priority_object()
+		if not object: return
 		
 		cooldown.start()
 		
-		selection["object"].apply_central_impulse(Vector3(10, 1, 0))
+		object.apply_central_impulse(Vector3(10, 1, 0))
 		
-		#test_object.apply_central_impulse(Vector3(10, 1, 0))
-	
-	
-	
+		release_held_object()
+
+# prioritise a held object. otherwise, get whatever object is being hovered over
+func get_priority_object():
+	if held_object: return held_object
+	var selection = mouse_selector.select()
+	if not selection: return null
+	return selection["object"]
+
+func release_held_object():
+	held_object = null

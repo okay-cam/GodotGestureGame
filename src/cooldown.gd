@@ -6,7 +6,7 @@ var cooldown : float = 100.0
 const LENIENCE = 95.0
 
 # total cooldown in seconds
-const COOLDOWN_TIME := 1.0
+const COOLDOWN_TIME := 0.75
 
 signal cooldown_changed
 
@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 		
 		#if cooldown <= LENIENCE:
 			#SerialManager.send("gd:cooldown_end")
-	elif cooldown > LENIENCE:
+	elif cooldown < LENIENCE:
 		set_cooldown( max(cooldown - (delta*100)/(COOLDOWN_TIME*4), 0) )
 	
 	print(cooldown)

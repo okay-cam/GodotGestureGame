@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhnoeo676il3n"]
+
+[ext_resource type="Script" uid="uid://b1j6oyh4rq4a1" path="res://src/mouse_selector.gd" id="1_4ugi6"]
+
+[node name="MouseSelector" type="Node3D"]
+script = ExtResource("1_4ugi6")
+camera_path = NodePath("../Camera3D")
+
+[node name="UpdateBufferTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="ClearBufferTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="UpdateBufferTimer" to="." method="_on_update_buffer_timeout"]
+[connection signal="timeout" from="ClearBufferTimer" to="." method="_on_clear_buffer_timeout"]

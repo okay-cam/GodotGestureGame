@@ -5,9 +5,23 @@ extends Node3D
 
 const RAY_LENGTH := 100.0
 
+# temporarially store recent hover selection
+var selection_buffer
+
+func _on_update_buffer_timeout():
+	var selection = update_selection()
+	if selection:
+		selection_buffer = selection
+		$ClearBufferTimer.start()
+		print("updated buffer with new selection")
+
+func _on_clear_buffer_timeout():
+	selection_buffer = update_selection()
+	print("clear buffer timeout")
 
 # cast a ray from camera at mouse position, and get the object colliding with the ray
-func select():
+func update_selection():
+	
 	var mouse_pos = get_viewport().get_mouse_position()
 	var ray_from = camera.project_ray_origin(mouse_pos)
 	var ray_to = ray_from + camera.project_ray_normal(mouse_pos) * RAY_LENGTH
@@ -24,10 +38,16 @@ func select():
 		return null
 	
 	selection["object"] = selection["collider"].get_parent()
+	#selection["position_offset"] = selection["position"] - selection["object"].global_transform.origin
 	
 	#object: the parent of the selection area
 	#collider: The colliding object.
 	#collider_id: The colliding object's ID.
 	#position: The intersection point.
-
+	
 	return selection
+
+func select():
+	var selection = update_selection()
+	if selection: return selection
+	return selection_buffer

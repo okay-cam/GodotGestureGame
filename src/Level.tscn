@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d4fnko62vebpj" path="res://src/player.gd" id="1_t7iv1"]
 [ext_resource type="Script" uid="uid://cp2l0qbucetd2" path="res://src/rigid_object.gd" id="2_2nifc"]
-[ext_resource type="Script" uid="uid://b1j6oyh4rq4a1" path="res://src/mouse_selector.gd" id="2_6flpr"]
+[ext_resource type="PackedScene" uid="uid://bhnoeo676il3n" path="res://src/mouse_selector.tscn" id="2_a8icf"]
 [ext_resource type="Script" uid="uid://coq00h74b3m3w" path="res://src/cooldown.gd" id="3_6flpr"]
 [ext_resource type="Script" uid="uid://chahy17in4ehf" path="res://src/control.gd" id="5_a8icf"]
 
@@ -69,9 +69,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 0.9848077, -0.17364818, 0, 0.17364818, 0.9848077, 0, 0, 0)
 fov = 70.0
 
-[node name="MouseSelector" type="Node3D" parent="Player"]
-script = ExtResource("2_6flpr")
-camera_path = NodePath("../Camera3D")
+[node name="MouseSelector" parent="Player" instance=ExtResource("2_a8icf")]
 
 [node name="Cooldown" type="Node3D" parent="Player"]
 script = ExtResource("3_6flpr")
