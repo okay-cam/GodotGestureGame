@@ -75,8 +75,8 @@ func _physics_process(_delta: float) -> void:
 		var hand_multiplier := 0.5  # how much to multiply real-life distance to in-game distance
 		# goal height should be how much the hand moves after holding the object
 		var goal_height = initial_object_height + (hand_height - initial_hand_height) * hand_multiplier
-		var stiffness = 75.0  # how strong the pull is
-		var damping = 20.0    # how much velocity is damped
+		var stiffness = 50.0  # how strong the pull is
+		var damping = 15.0    # how much velocity is damped
 		# ---
 		
 		var current_pos = held_object.global_transform.origin
