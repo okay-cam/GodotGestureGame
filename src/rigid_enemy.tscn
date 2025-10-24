@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctjmihdqmgtt8"]
+
+[ext_resource type="Script" uid="uid://dsjiktcyvqelg" path="res://src/hold_manager.gd" id="1_23rn7"]
+[ext_resource type="Script" uid="uid://bwwmfffbnslg2" path="res://src/rigid_enemy.gd" id="1_aqsop"]
+[ext_resource type="Script" uid="uid://crabvieu60brx" path="res://src/enemy_visual_manager.gd" id="2_aqsop"]
+[ext_resource type="Texture2D" uid="uid://crhf5b3uivsav" path="res://assets/enemy1.png" id="3_xuv77"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1brxq"]
+bounce = 0.05
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1brxq"]
+radius = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1brxq"]
+size = Vector3(1.25, 2.25, 1)
+
+[node name="RigidEnemy" type="RigidBody3D" groups=["Holdable"]]
+collision_layer = 2
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_1brxq")
+contact_monitor = true
+max_contacts_reported = 12
+script = ExtResource("1_aqsop")
+
+[node name="GroundedRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+target_position = Vector3(0, -0.2, 0)
+hit_from_inside = true
+
+[node name="HoldManager" type="Node3D" parent="."]
+script = ExtResource("1_23rn7")
+
+[node name="VisualManager" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 7)
+script = ExtResource("2_aqsop")
+rigid_enemy_path = NodePath("..")
+
+[node name="Sprite" type="Sprite3D" parent="VisualManager"]
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, 3, 1.5, -7)
+billboard = 2
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("3_xuv77")
+hframes = 4
+vframes = 4
+frame = 15
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_1brxq")
+
+[node name="Selection" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="Collision" type="CollisionShape3D" parent="Selection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+shape = SubResource("BoxShape3D_1brxq")
+
+[connection signal="body_entered" from="." to="VisualManager" method="_on_body_entered"]
+[connection signal="on_held" from="HoldManager" to="VisualManager" method="_on_hold"]
+[connection signal="on_released" from="HoldManager" to="VisualManager" method="_on_released"]

@@ -19,6 +19,14 @@ config/icon="res://assets/icon.svg"
 
 SerialManager="*res://src/serial/serial_manager.tscn"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdserial/plugin.cfg", "res://addons/sprite_mesh/plugin.cfg")
+
+[global_group]
+
+Holdable="Has a HoldManager child"
+
 [input]
 
 hold={

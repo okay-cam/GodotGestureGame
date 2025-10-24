@@ -13,11 +13,11 @@ func _on_update_buffer_timeout():
 	if selection:
 		selection_buffer = selection
 		$ClearBufferTimer.start()
-		print("updated buffer with new selection")
+		#print("updated buffer with new selection")
 
 func _on_clear_buffer_timeout():
 	selection_buffer = update_selection()
-	print("clear buffer timeout")
+	#print("clear buffer timeout")
 
 # cast a ray from camera at mouse position, and get the object colliding with the ray
 func update_selection():

@@ -40,4 +40,4 @@ func _process(delta: float) -> void:
 	elif cooldown < LENIENCE:
 		set_cooldown( max(cooldown - (delta*100)/(COOLDOWN_TIME*4), 0) )
 	
-	print(cooldown)
+	#print(cooldown)

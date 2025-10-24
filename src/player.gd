@@ -66,9 +66,10 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("hold") and not held_object:
 		var selection = mouse_selector.select()
 		if not selection: return
-		held_object = selection["object"]
+		hold_object(selection["object"])
 	
 	if Input.is_action_pressed("hold") and held_object:
+		
 		# --- motion constants
 		var hand_multiplier := 0.03  # how much to multiply real-life distance to in-game distance
 		var stiffness = 50.0  # how strong the pull is
@@ -102,7 +103,7 @@ func _physics_process(_delta: float) -> void:
 		pass
 	
 	if Input.is_action_just_released("hold") and held_object:
-		held_object = null
+		release_held_object()
 	
 	# below are debug inputs when sensors aren't available
 	
@@ -142,5 +143,13 @@ func get_priority_object():
 	if not selection: return null
 	return selection["object"]
 
+func hold_object(object):
+	held_object = object
+	if held_object.is_in_group("Holdable"):
+		held_object.get_node("HoldManager").held()
+	
+
 func release_held_object():
+	if held_object and held_object.is_in_group("Holdable"):
+		held_object.get_node("HoldManager").released()
 	held_object = null
