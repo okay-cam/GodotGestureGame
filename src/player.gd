@@ -100,7 +100,6 @@ func _physics_process(_delta: float) -> void:
 		held_object.apply_central_force(Vector3(force_x, force_y, 0))
 		
 		
-		pass
 	
 	if Input.is_action_just_released("hold") and held_object:
 		release_held_object()
@@ -114,6 +113,10 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("decrease_height"):
 		hand_height -= 1
 		print("hand height: " + str(hand_height))
+	
+	# DONT DO OTHER PROCESSES if held?
+	if held_object:
+		return
 	
 	if Input.is_action_just_pressed("left_force"):
 		var object = get_priority_object()
@@ -144,6 +147,9 @@ func get_priority_object():
 	return selection["object"]
 
 func hold_object(object):
+	
+	SerialManager.send("gd:hold")
+	
 	held_object = object
 	if held_object.is_in_group("Holdable"):
 		held_object.get_node("HoldManager").held()
@@ -153,3 +159,5 @@ func release_held_object():
 	if held_object and held_object.is_in_group("Holdable"):
 		held_object.get_node("HoldManager").released()
 	held_object = null
+	
+	SerialManager.send("gd:release")

@@ -4,7 +4,6 @@ extends Node3D
 @onready var rigid_enemy : RigidEnemy = get_node(rigid_enemy_path)
 
 @onready var sprite := $Sprite
-@onready var grounded_ray := $GroundedRay
 
 enum {STAND, SHOOT, WALK_1, WALK_2, WALK_3, WALK_4, HOLD_UP, HOLD_MID, HOLD_DOWN, SIDE, SIDE_IMPACT, BACK_1, BACK_2, DEAD}
 
@@ -23,7 +22,7 @@ var sideways := false
 
 func _process(_delta):
 	
-	print(rigid_enemy.linear_velocity)
+	#print(rigid_enemy.linear_velocity)
 	
 	if is_held:
 		sideways = false

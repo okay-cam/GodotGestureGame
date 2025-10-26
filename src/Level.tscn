@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://cu3vix21alpyc"]
+[gd_scene load_steps=17 format=3 uid="uid://cu3vix21alpyc"]
 
+[ext_resource type="Script" uid="uid://b2kdxqa4c6eqj" path="res://src/level.gd" id="1_plupk"]
 [ext_resource type="Script" uid="uid://d4fnko62vebpj" path="res://src/player.gd" id="1_t7iv1"]
 [ext_resource type="Script" uid="uid://cp2l0qbucetd2" path="res://src/rigid_object.gd" id="2_2nifc"]
 [ext_resource type="PackedScene" uid="uid://bhnoeo676il3n" path="res://src/mouse_selector.tscn" id="2_a8icf"]
@@ -56,6 +57,7 @@ bg_color = Color(0.47, 0.47, 0.47, 1)
 anti_aliasing = false
 
 [node name="Level" type="Node3D"]
+script = ExtResource("1_plupk")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2nifc")
