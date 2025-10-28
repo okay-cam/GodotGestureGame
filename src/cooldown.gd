@@ -49,10 +49,13 @@ func _process(delta: float) -> void:
 		
 		#if cooldown <= LENIENCE:
 			#SerialManager.send("gd:cooldown_end")
-	elif cooldown < LENIENCE:
-		set_cooldown( max(cooldown - (delta*100)/(COOLDOWN_TIME*4), 0) )
+	#elif cooldown < LENIENCE:
+		#set_cooldown( max(cooldown - (delta*100)/(COOLDOWN_TIME*4), 0) )
+	#else:
+		#set_cooldown( max(cooldown - (delta*100)/(COOLDOWN_TIME*10), 0) )
 	else:
-		set_cooldown( max(cooldown - (delta*100)/(COOLDOWN_TIME*10), 0) )
+		set_cooldown( max(cooldown - (delta*100)/(COOLDOWN_TIME*2), 0) )
+	
 	
 	update_gesture_ready()
 	
@@ -61,9 +64,9 @@ func _process(delta: float) -> void:
 func update_gesture_ready():
 	if cooldown >= LENIENCE and not gesture_ready:
 		gesture_ready = true
-		print("gesture ready!")
+		#print("gesture ready!")
 		SerialManager.send("gd:gesture_ready")
 	if cooldown < LENIENCE and gesture_ready:
 		gesture_ready = false
-		print("gesture gone")
+		#print("gesture gone")
 		SerialManager.send("gd:gesture_gone")

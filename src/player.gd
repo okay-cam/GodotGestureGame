@@ -38,9 +38,11 @@ func _on_gesture(gesture : String) -> void:
 	
 	match gesture:
 		"left":
+			print("left gesture")
 			Input.action_press("left_force")
 			Input.action_release("left_force")
 		"right":
+			print("right gesture")
 			Input.action_press("right_force")
 			Input.action_release("right_force")
 	
@@ -99,7 +101,6 @@ func _physics_process(_delta: float) -> void:
 		# Apply force only in the y-axis
 		held_object.apply_central_force(Vector3(force_x, force_y, 0))
 		
-		
 	
 	if Input.is_action_just_released("hold") and held_object:
 		release_held_object()
@@ -127,6 +128,9 @@ func _physics_process(_delta: float) -> void:
 		#selection["object"].apply_impulse(Vector3(-10, 1, 0), selection["position"])
 		object.apply_central_impulse(Vector3(-10, 1, 0))
 		
+		if object.find_child("ForceManager"):
+			object.get_node("ForceManager").forced()
+		
 		release_held_object()
 	
 	if Input.is_action_just_pressed("right_force"):
@@ -136,6 +140,9 @@ func _physics_process(_delta: float) -> void:
 		cooldown.start()
 		
 		object.apply_central_impulse(Vector3(10, 1, 0))
+		
+		if object.find_child("ForceManager"):
+			object.get_node("ForceManager").forced()
 		
 		release_held_object()
 
@@ -150,13 +157,16 @@ func hold_object(object):
 	
 	SerialManager.send("gd:hold")
 	
+	if not object:
+		return
+	
 	held_object = object
-	if held_object.is_in_group("Holdable"):
+	if held_object.find_child("HoldManager"):
 		held_object.get_node("HoldManager").held()
 	
 
 func release_held_object():
-	if held_object and held_object.is_in_group("Holdable"):
+	if held_object and  held_object.find_child("HoldManager"):
 		held_object.get_node("HoldManager").released()
 	held_object = null
 	

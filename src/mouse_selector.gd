@@ -40,6 +40,9 @@ func update_selection():
 	selection["object"] = selection["collider"].get_parent()
 	#selection["position_offset"] = selection["position"] - selection["object"].global_transform.origin
 	
+	if selection["object"].freeze:
+		return null
+	
 	#object: the parent of the selection area
 	#collider: The colliding object.
 	#collider_id: The colliding object's ID.

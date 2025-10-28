@@ -2,6 +2,8 @@ extends Node
 
 var serial: GdSerial
 
+var is_connected := false
+
 signal gesture
 signal hand_distance
 # signal when hand becomes present or if gone for long time
@@ -30,6 +32,10 @@ func _ready():
 	if serial.open():
 		print("Port opened successfully!")
 		
+		is_connected = true
+		
+		SerialManager.send("gd:clear")
+		
 		# Send command
 		#serial.writeline("From Godot")
 		
@@ -40,6 +46,7 @@ func _ready():
 			#print("Response: ", response)
 		
 		#serial.close()
+		
 	else:
 		print("Failed to open port")
 
@@ -85,6 +92,8 @@ func _on_hand_very_present_timeout() -> void:
 	is_hand_very_present = false
 
 func send(info : String):
+	
+	if not is_connected: return
 	
 	serial.writeline(info)
 	
