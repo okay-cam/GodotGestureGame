@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cu3vix21alpyc"]
+[gd_scene load_steps=27 format=3 uid="uid://cu3vix21alpyc"]
 
 [ext_resource type="Script" uid="uid://b2kdxqa4c6eqj" path="res://src/level.gd" id="1_plupk"]
 [ext_resource type="Script" uid="uid://d4fnko62vebpj" path="res://src/player.gd" id="1_t7iv1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://chahy17in4ehf" path="res://src/control.gd" id="5_a8icf"]
 [ext_resource type="PackedScene" uid="uid://byuvl1g12vxys" path="res://src/rigid_barrel.tscn" id="7_dvieh"]
 [ext_resource type="PackedScene" uid="uid://j1i3al7jduaj" path="res://src/barrel_particles.tscn" id="7_dxjxh"]
+[ext_resource type="Script" uid="uid://bfv6s1c3a21o2" path="res://src/area_objects.gd" id="7_la1c1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bexhn"]
 
@@ -228,10 +229,10 @@ size = Vector3(36, 30, 36)
 material = SubResource("StandardMaterial3D_dvieh")
 
 [node name="UpperFloor" type="CSGBox3D" parent="Area1Decor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.301973, 4.4699388, -16.839645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.301973, 4.4699388, -15.339645)
 use_collision = true
 collision_mask = 0
-size = Vector3(30, 0.5, 5)
+size = Vector3(30, 0.5, 2)
 material = SubResource("StandardMaterial3D_cbpxf")
 
 [node name="Container3" type="CSGBox3D" parent="Area1Decor"]
@@ -261,6 +262,7 @@ size = Vector3(4, 4.5, 12)
 material = SubResource("StandardMaterial3D_utxjc")
 
 [node name="Area1Objects" type="Node3D" parent="."]
+script = ExtResource("7_la1c1")
 
 [node name="RigidEnemy2" parent="Area1Objects" instance=ExtResource("5_1brxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.65696, 5.5, -15.265093)
@@ -277,6 +279,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5585477, 1.9202774, -7.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1569595, 1, -7.5)
 collision_mask = 3
 max_contacts_reported = 8
+x_range = 10.0
 walking = -1.0
 
 [node name="Bounds" type="StaticBody3D" parent="Area1Objects"]
@@ -294,7 +297,7 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 17.9
 shape = SubResource("WorldBoundaryShape3D_utxjc")
 
 [node name="Front" type="CollisionShape3D" parent="Area1Objects/Bounds"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.836833, 7.131069, -4.8605385)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.836833, 7.131069, -6.4030247)
 shape = SubResource("WorldBoundaryShape3D_utxjc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area1Objects/Bounds"]
@@ -330,6 +333,6 @@ value = 50.0
 show_percentage = false
 
 [node name="LoadParticles" parent="." instance=ExtResource("7_dxjxh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -16.459587)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 7.6505146)
 
 [connection signal="cooldown_changed" from="Player/Cooldown" to="UI/Control" method="_on_cooldown_changed"]

@@ -1,6 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://byuvl1g12vxys"]
+[gd_scene load_steps=11 format=4 uid="uid://byuvl1g12vxys"]
 
 [ext_resource type="Texture2D" uid="uid://bcoifajcv2kf8" path="res://assets/barrel2.png" id="1_qsni5"]
+[ext_resource type="Script" uid="uid://dwkqca4c4limd" path="res://src/rigid_barrel.gd" id="1_vmgna"]
+[ext_resource type="PackedScene" uid="uid://c0pbwu3agf6aj" path="res://src/z_manager.tscn" id="3_c6jx4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d4mnk"]
 albedo_texture = ExtResource("1_qsni5")
@@ -59,6 +61,7 @@ collision_mask = 3
 axis_lock_linear_z = true
 axis_lock_angular_y = true
 sleeping = true
+script = ExtResource("1_vmgna")
 metadata/_edit_group_ = true
 
 [node name="BarrelMesh" type="MeshInstance3D" parent="."]
@@ -78,3 +81,5 @@ collision_mask = 0
 
 [node name="Collision" type="CollisionShape3D" parent="Selection"]
 shape = SubResource("CylinderShape3D_6flpr")
+
+[node name="Z-Manager" parent="." instance=ExtResource("3_c6jx4")]

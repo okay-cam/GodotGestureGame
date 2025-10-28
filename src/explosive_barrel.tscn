@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://dayffowxru1w1"]
+[gd_scene load_steps=13 format=4 uid="uid://dayffowxru1w1"]
 
 [ext_resource type="Script" uid="uid://cp2l0qbucetd2" path="res://src/rigid_object.gd" id="1_f6j34"]
 [ext_resource type="PackedScene" uid="uid://j1i3al7jduaj" path="res://src/barrel_particles.tscn" id="2_yctxf"]
 [ext_resource type="Texture2D" uid="uid://cc24qkryg7hef" path="res://assets/barrel.png" id="3_xtgua"]
+[ext_resource type="PackedScene" uid="uid://c0pbwu3agf6aj" path="res://src/z_manager.tscn" id="4_yctxf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxjxh"]
 albedo_texture = ExtResource("3_xtgua")
@@ -96,3 +97,5 @@ monitorable = false
 
 [node name="Collision" type="CollisionShape3D" parent="ExplodeArea"]
 shape = SubResource("SphereShape3D_dxjxh")
+
+[node name="Z-Manager" parent="." instance=ExtResource("4_yctxf")]

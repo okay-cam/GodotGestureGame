@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctjmihdqmgtt8"]
+[gd_scene load_steps=14 format=3 uid="uid://ctjmihdqmgtt8"]
 
 [ext_resource type="Script" uid="uid://dsjiktcyvqelg" path="res://src/hold_manager.gd" id="1_23rn7"]
 [ext_resource type="Script" uid="uid://bwwmfffbnslg2" path="res://src/rigid_enemy.gd" id="1_aqsop"]
 [ext_resource type="Script" uid="uid://crabvieu60brx" path="res://src/enemy_visual_manager.gd" id="2_aqsop"]
 [ext_resource type="Script" uid="uid://cy4o6xtfd3gm5" path="res://src/forced_manager.gd" id="3_we57c"]
 [ext_resource type="Texture2D" uid="uid://crhf5b3uivsav" path="res://assets/enemy1.png" id="3_xuv77"]
+[ext_resource type="PackedScene" uid="uid://c0pbwu3agf6aj" path="res://src/z_manager.tscn" id="6_we57c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1brxq"]
 bounce = 0.05
@@ -103,6 +104,8 @@ root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_xuv77")
 }
+
+[node name="Z-Manager" parent="." instance=ExtResource("6_we57c")]
 
 [node name="NormalCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_1brxq")

@@ -96,6 +96,5 @@ func stop_walking():
 	constant_force.x = 0
 	$WalkEnd.stop()
 
-
 func _on_forced():
 	if walking != 0: stop_walking()

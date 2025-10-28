@@ -45,6 +45,14 @@ func _on_gesture(gesture : String) -> void:
 			print("right gesture")
 			Input.action_press("right_force")
 			Input.action_release("right_force")
+		"up":
+			print("up gesture")
+			Input.action_press("forward_force")
+			Input.action_release("forward_force")
+		"down":
+			print("down gesture")
+			Input.action_press("backward_force")
+			Input.action_release("backward_force")
 	
 
 func _on_hand_distance(distance : float) -> void:
@@ -145,6 +153,39 @@ func _physics_process(_delta: float) -> void:
 			object.get_node("ForceManager").forced()
 		
 		release_held_object()
+	
+	if Input.is_action_just_pressed("forward_force"):
+		var object = get_priority_object() as RigidBody3D
+		if not object: return
+		
+		cooldown.start()
+		
+		# unbound object from z axis
+		if object.find_child("Z-Manager"):
+			object.get_node("Z-Manager").allow()
+			object.apply_central_impulse(Vector3(0, 1, -5))
+		
+		if object.find_child("ForceManager"):
+			object.get_node("ForceManager").forced()
+		
+		release_held_object()
+	
+	if Input.is_action_just_pressed("backward_force"):
+		var object = get_priority_object()
+		if not object: return
+		
+		cooldown.start()
+		
+		# unbound object from z axis
+		if object.find_child("Z-Manager"):
+			object.get_node("Z-Manager").allow()
+			object.apply_central_impulse(Vector3(0, 1, 5))
+		
+		if object.find_child("ForceManager"):
+			object.get_node("ForceManager").forced()
+		
+		release_held_object()
+	
 
 # prioritise a held object. otherwise, get whatever object is being hovered over
 func get_priority_object():
