@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=4 uid="uid://boqmsx455y50k"]
+
+[ext_resource type="PackedScene" uid="uid://c0pbwu3agf6aj" path="res://src/z_manager.tscn" id="2_7h3p7"]
+[ext_resource type="Texture2D" uid="uid://bj2c6p3cjo7yg" path="res://assets/crate_texture.png" id="2_hyx7i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1ib3"]
+albedo_texture = ExtResource("2_hyx7i")
+texture_filter = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_htd55"]
+_surfaces = [{
+"aabb": AABB(-0.79419416, 0, -0.79419416, 1.5883883, 1.625, 1.5883883),
+"format": 34896613377,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAAACAAMAAgABAAQAAgAEAAUAAwACAAUABQAEAAYABAAHAAYABwAFAAYAAQAHAAQAAwAFAAcAAAAIAAEAAwAJAAAACQAIAAAABwAKAAMACgAJAAMAAQALAAcACwAKAAcACAALAAEACgAMAAkACQANAAgADAANAAkADQAOAAgACAAOAAsACwAPAAoADwAMAAoADgAPAAsADAAPABAADgANABEADQAMABIAEgAMABAAEQANABIAEAAPABMADwAOABMAEAATABIAEwAOABEAEgATABEA"),
+"name": "m_33b92085-0c03-029b-a762-8786b711ca1c",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("3/hN7N/4AADf+E3sHwcAAN/4AADf+AAAHwdN7N/4AADf+AAAHwcAAB8HAADf+AAAHwcAAB8HAAAfB03sHwcAAP//TewAAAAA//9N7P//AAAAAE3s//8AAAAATewAAAAA////////AAD/////AAAAAAAA//8AAAAAAAD/////AADf+P//3/gAAB8H//8fBwAA3/j//x8HAAAfB///3/gAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jlgf5"]
+_surfaces = [{
+"aabb": AABB(-0.79419416, 0, -0.79419416, 1.5883883, 1.625, 1.5883883),
+"attribute_data": PackedByteArray("/2P/A/+T/wP/Y/8v/5P/L/+T/wP/k/8v/2P/A/9j/y//Yf8v/zH/L/9hAAD/MQAA/2H/Mf9h/2H/Mf8x/zH/Yf+T/wP/k/8v/2P/A/9j/y//Y/8D/5P/A/9j/y//k/8v/2MAAP+TAAD/Y/8D/5P/A/9jAAD/kwAA/2P/A/+T/wP/YwAA/5MAAP9j/wP/k/8D/2MAAP+TAAD/Y/8D/5P/AyJz2AFAZpYByHKWAZ9mWAFxZAAAcWTUAGxkBQBsZM4A04RqAf9jagHpgwAA6WQAAP9jAADTZAAABWQFAM1kBQBHZvsAKHM9AaBmPQHKcnsBY2TUAGNkAABpZM4AaWQFAP9jAADTfgAAvmRqARR+agHTZA4A/2MOAM1kCAAFZAgA"),
+"format": 34896613399,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcACAAJAAoACgAJAAsADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFgAVABcAGAAZABoAGgAZABsAHAAdAB4AHgAdAB8AIAAhACIAIgAhACMAJAAlACYAJgAlACcAKAApACoAKgApACsALAAtAC4ALgAtAC8AMAAxADIAMgAxADMANAA1ADYANgA1ADcAOAA5ADoAOgA5ADsAPAA9AD4APgA9AD8AQABBAEIAQgBBAEMARABFAEYARgBFAEcA"),
+"material": SubResource("StandardMaterial3D_q1ib3"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 72,
+"vertex_data": PackedByteArray("3/hN7N/4/7/f+E3sHwf/v9/4AADf+P+/3/gAAB8H/78fB03s3/j/vx8HAADf+P+/HwdN7B8H/78fBwAAHwf/v9/4///f+P+/Hwf//9/4/7/f+P//Hwf/vx8H//8fB/+/3/gAAN/4/7/f+AAAHwf/vx8HAADf+P+/HwcAAB8H/7/f+E3s3/gAgN/4AADf+ACAHwdN7N/4AIAfBwAA3/gAgN/4TewfB///HwdN7B8H///f+AAAHwf//x8HAAAfB///AAD/////AID///////8AgAAATez//wCA//9N7P//AID/////////v/////8AAP+///9N7P///7///03sAAD/v/////8AAP//AAD//wAA/////03sAAD//wAATewAAP//AAD//wAA/78AAP//////vwAATewAAP+/AABN7P///7//////AAAB1v///////wHW3/j//x8HAdbf+P//3/gB1v//Tez///+///9N7AAA/7/f+E3s3/j/v9/4TewfB/+//////////78AAP//////v9/4///f+P+/Hwf//9/4/78AAE3s////v///Tez///+/HwdN7N/4/7/f+E3s3/j/vwAA/////wHWAAD//wAAAdYfB///3/gB1h8H//8fBwHWAABN7AAA/78AAE3s////vx8HTewfB/+/HwdN7N/4/78AAP//AAD/v/////8AAP+/Hwf//x8H/7/f+P//Hwf/v///TewAAP+/AABN7AAA/7/f+E3sHwf/vx8HTewfB/+//38AAP9/AAD/fwAA/38AAP9/////f////3////9///////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f/9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f////3////9/////f////3////9/////f////3///+zU2yns1Nsp7NTbKezU2ykAAP9/AAD/fwAA/38AAP9/////f////3////9/////fwAA/38AAP9/AAD/fwAA/3/s1Nsp7NTbKezU2yns1NspAAD/fwAA/38AAP9/AAD/f////3////9/////f////38AAP9/AAD/fwAA/38AAP9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_htd55")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q1ib3"]
+size = Vector3(2.25, 2.45, 2.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7h3p7"]
+size = Vector3(2.5, 2.4, 2.5)
+
+[node name="RigidCrate" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+axis_lock_linear_z = true
+axis_lock_angular_y = true
+mass = 1.3
+sleeping = true
+metadata/_edit_group_ = true
+
+[node name="CrateMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("ArrayMesh_jlgf5")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.225, 0)
+shape = SubResource("BoxShape3D_q1ib3")
+
+[node name="Selection" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="Collision" type="CollisionShape3D" parent="Selection"]
+shape = SubResource("BoxShape3D_7h3p7")
+
+[node name="Z-Manager" parent="." instance=ExtResource("2_7h3p7")]

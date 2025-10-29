@@ -1,7 +1,0 @@
-extends RigidBody3D
-
-
-
-	
-	
-	

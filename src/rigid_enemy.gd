@@ -56,6 +56,11 @@ func _integrate_forces(state):
 		var relative_velocity = body_velocity - collider_velocity
 		var approach_speed = relative_velocity.dot(contact_normal)
 		
+		var collider_object = state.get_contact_collider_object(contact_idx)
+		
+		if collider_object is RigidBody3D:
+			approach_speed *= collider_object.mass
+		
 		
 		if approach_speed < -7.5:
 			print(approach_speed)
