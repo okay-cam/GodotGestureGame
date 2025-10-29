@@ -46,6 +46,8 @@ func disable_bounds():
 
 func freeze():
 	for child in get_children():
+		#if child is ExplosiveBarrel:
+			#continue
 		if child is RigidBody3D:
 			child.freeze = true
 

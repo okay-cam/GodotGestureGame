@@ -1,32 +1,35 @@
 extends RigidBody3D
 
+class_name ExplosiveBarrel
+
 @export var particles_scene : PackedScene
 
 var is_exploded := false
 
-var _initial_frames = 0
+#var _initial_frames = 0
 
-func _ready():
-	is_exploded = false
-	
-	# Reset all physics state on ready
-	constant_force = Vector3.ZERO
-	linear_velocity = Vector3.ZERO
-	angular_velocity = Vector3.ZERO
-	linear_damp = 100
-	contact_monitor = false
-	is_exploded = false
-	
+#func _ready():
+	#is_exploded = false
+	#
+	## Reset all physics state on ready
+	#constant_force = Vector3.ZERO
+	#linear_velocity = Vector3.ZERO
+	#angular_velocity = Vector3.ZERO
+	#linear_damp = 100
+
+
+
+# !! stupid fix, just prevent rotations.
 func _integrate_forces(state):
 	
-	if _initial_frames < 25:
-		state.linear_velocity = Vector3.ZERO
-		state.angular_velocity = Vector3.ZERO
-		_initial_frames += 1
-		
-		if _initial_frames == 25:
-			linear_damp = 0
-			contact_monitor = true
+	#if _initial_frames < 25 and not freeze:
+		#state.linear_velocity = Vector3.ZERO
+		#state.angular_velocity = Vector3.ZERO
+		#_initial_frames += 1
+		#
+		#if _initial_frames == 25:
+			#linear_damp = 0
+			#contact_monitor = true
 	
 	if is_exploded:
 		return
@@ -42,8 +45,13 @@ func _integrate_forces(state):
 		
 		if approach_speed < -7.5:
 			print("Explosion triggered at speed: ", approach_speed)
+			#print("body speed: ", body_velocity)
+			print("body speed: ", state.linear_velocity)
+			print("collider speed: ", collider_velocity)
 			explode()
 			return  # Exit early after exploding
+	
+
 
 func explode():
 	
@@ -56,8 +64,8 @@ func explode():
 	$BarrelMesh.hide()
 	
 	var particles : Node3D = particles_scene.instantiate()
-	particles.position = global_position
 	get_parent().add_child(particles)
+	particles.global_position = global_position
 	
 	apply_explode_force()
 	
@@ -74,13 +82,10 @@ func apply_explode_force():
 			
 		if object is RigidBody3D:
 			var difference : Vector3 = object.global_position - global_position
-			object.apply_impulse(difference.normalized() * 5)
+			#print(difference.normalized() * (17 - difference.length()) * 1)
+			if object.find_child("Z-Manager"):
+				object.get_node("Z-Manager").allow()
+			object.apply_impulse(difference.normalized() * (17 - difference.length()) * 1)
 
 func explode_react():
 	explode()
-
-func _input(event):
-	if event is InputEventKey and event.is_pressed() and not event.is_echo():
-		match event.keycode:
-			KEY_2:
-				queue_free()

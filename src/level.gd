@@ -10,9 +10,15 @@ var area := 0
 func _ready():
 	
 	for node_path in area_object_paths:
-		area_objects_array.append(get_node(node_path))
+		var area_object_node := get_node(node_path)
+		area_object_node.all_died.connect(all_died)
+		area_objects_array.append(area_object_node)
+	
+	area_objects_array[area].start()
 	
 
+func all_died():
+	path.move(area)
 
 func _on_next_area_reached(specific_area := -1):
 	if specific_area == -1:
@@ -42,17 +48,20 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
 		match event.keycode:
 			KEY_1:
-				print("Key 1")
-				path.move(0, true)
-				_on_next_area_reached(1)
+				key_press(1)
 			KEY_2:
-				print("Key 2")
-				path.move(1, true)
-				_on_next_area_reached(2)
+				key_press(2)
 			KEY_3:
 				print("Key 3")
 				# Code for Key 3
 			KEY_4:
 				print("Key 4")
 				# Code for Key 4
+
+func key_press(key_int : int):
+	area_objects_array[area].stop()
+	print("Key ", key_int)
+	path.move(key_int-1, true)
+	_on_next_area_reached(key_int)
 	
+	pass

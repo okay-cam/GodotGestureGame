@@ -10,7 +10,7 @@ extends Node3D
 var held_object = null
 
 # debug hand height variable (cm)
-var hand_height = 5
+var hand_height = 10
 # !! may need a raw height, and a processed height
 # !! arduino should send a processed height?
 
@@ -69,8 +69,24 @@ func _on_hand_present(is_present : bool) -> void:
 	pass # Replace with function body.
 
 
+func get_fixed_mouse_position():
+	var viewport := get_viewport()
+	var mouse_pos := viewport.get_mouse_position()
+	var viewport_size := viewport.get_visible_rect().size
+
+	var mouse_pos_normalized := mouse_pos / viewport_size
+	return mouse_pos_normalized
+
 
 func _physics_process(_delta: float) -> void:
+	
+	var mouse : Vector2 = get_fixed_mouse_position()
+	var strength := 5.0
+	
+	mouse = mouse.clamp(Vector2.ZERO, Vector2.ONE)
+	
+	$Camera3D.rotation_degrees.x = 10 + (-mouse.y+0.5) * strength
+	$Camera3D.rotation_degrees.y = -(mouse.x-0.5) * strength
 	
 	# !! only run holding if hand is in range too
 	if Input.is_action_just_pressed("hold") and not held_object:
@@ -207,8 +223,12 @@ func hold_object(object):
 	
 
 func release_held_object():
-	if held_object and  held_object.find_child("HoldManager"):
+	if held_object and held_object.find_child("HoldManager"):
 		held_object.get_node("HoldManager").released()
+	
+	if held_object is RigidBody3D:
+		held_object.sleeping = false
+	
 	held_object = null
 	
 	SerialManager.send("gd:release")

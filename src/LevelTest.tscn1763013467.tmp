@@ -116,7 +116,7 @@ test_object_path = NodePath("../Area0Objects/RigidBarrel")
 metadata/_edit_group_ = true
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 0.98480767, -0.17364818, 0, 0.17364818, 0.98480767, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9848077, -0.17364818, 0, 0.17364818, 0.9848077, 0, 0, 0)
 fov = 70.0
 
 [node name="MouseSelector" parent="Player" instance=ExtResource("2_a8icf")]
@@ -303,7 +303,6 @@ script = ExtResource("7_la1c1")
 [node name="RigidEnemy2" parent="Area0Objects" instance=ExtResource("5_1brxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.65696, 5.5, -15.265093)
 collision_mask = 3
-freeze = true
 max_contacts_reported = 8
 x_goal = 2.0
 x_range = 5.0
@@ -311,12 +310,10 @@ walking = -3.0
 
 [node name="RigidBarrel" parent="Area0Objects" instance=ExtResource("7_dvieh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5585477, 1.9202774, -7.5)
-freeze = true
 
 [node name="RigidEnemy" parent="Area0Objects" instance=ExtResource("5_1brxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1569595, 1, -7.5)
 collision_mask = 3
-freeze = true
 max_contacts_reported = 8
 x_range = 10.0
 walking = -1.0
@@ -381,14 +378,14 @@ collision_mask = 3
 freeze = true
 max_contacts_reported = 8
 x_range = 5.0
-walking = 2.0
+walking = 1.7
 
 [node name="RigidEnemy3" parent="Area1Objects" instance=ExtResource("5_1brxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.224085, 5.0658426, -14.931435)
 collision_mask = 3
 freeze = true
 max_contacts_reported = 8
-walking = 1.5
+walking = 0.5
 
 [node name="RigidEnemy4" parent="Area1Objects" instance=ExtResource("5_1brxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3054733, 1, -7)
@@ -397,7 +394,7 @@ freeze = true
 max_contacts_reported = 8
 x_goal = 3.0
 x_range = 2.0
-walking = 3.0
+walking = 2.0
 
 [node name="RigidCrate" parent="Area1Objects" instance=ExtResource("10_dvieh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0994005, 0, -7.1100006)
@@ -455,7 +452,7 @@ size = Vector3(36, 30, 36)
 material = SubResource("StandardMaterial3D_dvieh")
 
 [node name="Building3" type="Node3D" parent="Area2Decor"]
-transform = Transform3D(-0.15643442, 0, -0.9876882, -0.12621832, 0.991801, 0.019991016, 0.9795902, 0.12779167, -0.15515181, 18.271803, 0, -17.544891)
+transform = Transform3D(-0.15643442, 0, -0.9876882, 0, 1, 0, 0.9876882, 0, -0.15643442, 18.271803, 0, -17.544891)
 
 [node name="Wall" type="CSGBox3D" parent="Area2Decor/Building3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -9.252092, 0)
@@ -465,7 +462,7 @@ size = Vector3(18, 30, 12)
 material = SubResource("StandardMaterial3D_nd2q5")
 
 [node name="Door" type="CSGBox3D" parent="Area2Decor/Building3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.631996, 2.6006818, 4.1047897)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.6319933, 1.8299913, 4.1047897)
 use_collision = true
 collision_mask = 0
 size = Vector3(1, 4, 2.6)
@@ -493,10 +490,11 @@ size = Vector3(1, 4, 2.6)
 material = SubResource("StandardMaterial3D_la1c1")
 
 [node name="Area2Objects" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -54)
 script = ExtResource("7_la1c1")
 
 [node name="RigidEnemy3" parent="Area2Objects" instance=ExtResource("5_1brxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.85909, 7.5232844, -77.431435)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.85909, 6.8804364, -23.431435)
 collision_mask = 3
 sleeping = true
 freeze = true
@@ -504,51 +502,51 @@ max_contacts_reported = 8
 walking = -0.5
 
 [node name="RigidCrate4" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.058974, 2.4, -77.11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.058974, 2.4, -23.11)
 freeze = true
 
 [node name="RigidCrate5" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6425495, -0.099999905, -77.11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6425495, -0.099999905, -23.11)
 freeze = true
 
 [node name="RigidCrate6" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.179518, -0.099999905, -77.11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.179518, -0.099999905, -23.11)
 freeze = true
 
 [node name="RigidCrate7" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3204823, -0.099999905, -64.61)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3204823, -0.099999905, -10.610001)
 freeze = true
 
 [node name="RigidCrate8" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3204823, -0.099999905, -64.61)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3204823, -0.099999905, -10.610001)
 freeze = true
 
 [node name="RigidCrate9" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6795177, -0.099999905, -64.61)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6795177, -0.099999905, -10.610001)
 freeze = true
 
 [node name="RigidCrate10" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17951775, 2.4, -64.61)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17951775, 2.4, -10.610001)
 freeze = true
 
 [node name="RigidCrate11" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8204823, 2.4, -64.61)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8204823, 2.4, -10.610001)
 freeze = true
 
 [node name="RigidCrate12" parent="Area2Objects" instance=ExtResource("10_dvieh")]
-transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 16.179518, -0.099999905, -60.73204)
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 16.179518, -0.099999905, -6.7320404)
 freeze = true
 
 [node name="RigidBarrel" parent="Area2Objects" instance=ExtResource("7_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.669226, 0.42027736, -57.066612)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.669226, 0.42027736, -3.0666122)
 freeze = true
 
 [node name="RigidBarrel2" parent="Area2Objects" instance=ExtResource("7_dvieh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.558548, 0.42027736, -54.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.558548, 0.42027736, -0.5)
 freeze = true
 
 [node name="RigidEnemy4" parent="Area2Objects" instance=ExtResource("5_1brxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.88, -54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.88, 0)
 collision_mask = 3
 sleeping = true
 freeze = true
@@ -556,7 +554,7 @@ max_contacts_reported = 8
 walking = -0.5
 
 [node name="RigidEnemy5" parent="Area2Objects" instance=ExtResource("5_1brxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.88, -60)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.88, -6)
 collision_mask = 3
 sleeping = true
 freeze = true
@@ -564,7 +562,6 @@ max_contacts_reported = 8
 walking = 1.0
 
 [node name="Bounds" type="StaticBody3D" parent="Area2Objects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -54)
 
 [node name="Back" type="CollisionShape3D" parent="Area2Objects/Bounds"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.288414, 20.248077, -27.185165)
@@ -587,13 +584,8 @@ shape = SubResource("WorldBoundaryShape3D_utxjc")
 disabled = true
 
 [node name="ExplosiveBarrel" parent="Area2Objects" instance=ExtResource("14_cbpxf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.758, 0.5, -63.996002)
-
-[node name="ExplosiveBarrel2" parent="Area2Objects" instance=ExtResource("14_cbpxf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.238, 0.5, -56.724)
-
-[node name="Area2ObjectsOLD" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -54)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.757824, 0.48188734, -9.995689)
+freeze = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
