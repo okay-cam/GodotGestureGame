@@ -81,20 +81,22 @@ func get_fixed_mouse_position():
 func _physics_process(_delta: float) -> void:
 	
 	var mouse : Vector2 = get_fixed_mouse_position()
-	var strength := 5.0
+	var strength := 8.0
 	
 	mouse = mouse.clamp(Vector2.ZERO, Vector2.ONE)
 	
-	$Camera3D.rotation_degrees.x = 10 + (-mouse.y+0.5) * strength
+	#$Camera3D.rotation_degrees.x = 10 + (-mouse.y+0.5) * strength
+	$Camera3D.rotation_degrees.x = 5 + (-mouse.y+0.5) * strength
 	$Camera3D.rotation_degrees.y = -(mouse.x-0.5) * strength
 	
-	# !! only run holding if hand is in range too
 	if Input.is_action_just_pressed("hold") and not held_object:
 		var selection = mouse_selector.select()
 		if not selection: return
 		hold_object(selection["object"])
 	
 	if Input.is_action_pressed("hold") and held_object:
+		
+		held_object.axis_lock_linear_z = true
 		
 		# --- motion constants
 		var hand_multiplier := 0.03  # how much to multiply real-life distance to in-game distance
@@ -126,7 +128,7 @@ func _physics_process(_delta: float) -> void:
 		held_object.apply_central_force(Vector3(force_x, force_y, 0))
 		
 	
-	if Input.is_action_just_released("hold") and held_object:
+	if Input.is_action_just_released("hold"):
 		release_held_object()
 	
 	# below are debug inputs when sensors aren't available
@@ -150,7 +152,7 @@ func _physics_process(_delta: float) -> void:
 		cooldown.start()
 		
 		#selection["object"].apply_impulse(Vector3(-10, 1, 0), selection["position"])
-		object.apply_central_impulse(Vector3(-10, 1, 0))
+		object.apply_central_impulse(Vector3(-12, 1, 0))
 		
 		if object.find_child("ForceManager"):
 			object.get_node("ForceManager").forced()
@@ -163,7 +165,7 @@ func _physics_process(_delta: float) -> void:
 		
 		cooldown.start()
 		
-		object.apply_central_impulse(Vector3(10, 1, 0))
+		object.apply_central_impulse(Vector3(12, 1, 0))
 		
 		if object.find_child("ForceManager"):
 			object.get_node("ForceManager").forced()
@@ -179,7 +181,7 @@ func _physics_process(_delta: float) -> void:
 		# unbound object from z axis
 		if object.find_child("Z-Manager"):
 			object.get_node("Z-Manager").allow()
-			object.apply_central_impulse(Vector3(0, 1, -5))
+			object.apply_central_impulse(Vector3(0, 1, -8))
 		
 		if object.find_child("ForceManager"):
 			object.get_node("ForceManager").forced()
@@ -195,7 +197,7 @@ func _physics_process(_delta: float) -> void:
 		# unbound object from z axis
 		if object.find_child("Z-Manager"):
 			object.get_node("Z-Manager").allow()
-			object.apply_central_impulse(Vector3(0, 1, 5))
+			object.apply_central_impulse(Vector3(0, 1, 8))
 		
 		if object.find_child("ForceManager"):
 			object.get_node("ForceManager").forced()
@@ -223,6 +225,11 @@ func hold_object(object):
 	
 
 func release_held_object():
+	
+	if held_object == null:
+		SerialManager.send("gd:release")
+		return
+	
 	if held_object and held_object.find_child("HoldManager"):
 		held_object.get_node("HoldManager").released()
 	

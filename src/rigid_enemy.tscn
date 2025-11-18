@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctjmihdqmgtt8"]
+[gd_scene load_steps=15 format=3 uid="uid://ctjmihdqmgtt8"]
 
 [ext_resource type="Script" uid="uid://dsjiktcyvqelg" path="res://src/hold_manager.gd" id="1_23rn7"]
 [ext_resource type="Script" uid="uid://bwwmfffbnslg2" path="res://src/rigid_enemy.gd" id="1_aqsop"]
@@ -59,13 +59,17 @@ height = 1.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_1brxq"]
 size = Vector3(1.25, 2.25, 1)
 
-[node name="RigidEnemy" type="RigidBody3D" groups=["Forceable", "Holdable"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_we57c"]
+size = Vector3(1.25, 0.5419922, 1)
+
+[node name="RigidEnemy" type="RigidBody3D" groups=["ExplodeReact", "Forceable", "Holdable"]]
 collision_layer = 2
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_1brxq")
+freeze = true
 contact_monitor = true
 max_contacts_reported = 12
 script = ExtResource("1_aqsop")
@@ -123,6 +127,11 @@ collision_mask = 0
 [node name="Collision" type="CollisionShape3D" parent="Selection"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
 shape = SubResource("BoxShape3D_1brxq")
+
+[node name="DeadCollision" type="CollisionShape3D" parent="Selection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2709961, 0)
+shape = SubResource("BoxShape3D_we57c")
+disabled = true
 
 [node name="WalkEnd" type="Timer" parent="."]
 

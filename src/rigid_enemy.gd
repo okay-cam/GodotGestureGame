@@ -42,6 +42,8 @@ func process_walking_goal():
 
 func _integrate_forces(state):
 	
+	if freeze: return
+	
 	if walking != 0:
 		state.linear_velocity.x = sign(walking) * 4
 		
@@ -82,7 +84,9 @@ func minor_hit():
 func dead_hitbox():
 	$NormalCollision.set_deferred("disabled", true)
 	$DeadCollision.set_deferred("disabled", false)
-
+	$Selection/Collision.set_deferred("disabled", true)
+	$Selection/DeadCollision.set_deferred("disabled", false)
+	
 
 func _on_hold():
 	stop_walking()
@@ -103,3 +107,6 @@ func stop_walking():
 
 func _on_forced():
 	if walking != 0: stop_walking()
+
+func explode_react():
+	die()

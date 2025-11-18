@@ -18,6 +18,11 @@ func _ready():
 	
 
 func all_died():
+	
+	if area == 3:
+		
+		return
+	
 	path.move(area)
 
 func _on_next_area_reached(specific_area := -1):
@@ -37,6 +42,12 @@ func _on_next_area_reached(specific_area := -1):
 
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("fullscreen"):
+		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	
 	if event.is_action_pressed("restart"):
 		print("RESTARTING SCENE")
 		get_tree().reload_current_scene()
@@ -52,11 +63,7 @@ func _input(event: InputEvent) -> void:
 			KEY_2:
 				key_press(2)
 			KEY_3:
-				print("Key 3")
-				# Code for Key 3
-			KEY_4:
-				print("Key 4")
-				# Code for Key 4
+				key_press(3)
 
 func key_press(key_int : int):
 	area_objects_array[area].stop()

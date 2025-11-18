@@ -12,6 +12,9 @@ var tween : Tween
 
 signal next_area_reached
 
+func _ready():
+	curve = paths[0]
+
 func move(path_num : int, instant := false):
 	
 	curve = paths[path_num]

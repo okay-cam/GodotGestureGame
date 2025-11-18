@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb83v4oq5r5vt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbpxf"]
+albedo_color = Color(0.67756194, 0.5338934, 0.32728875, 1)
+metallic_specular = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4162k"]
+size = Vector3(9.7, 0.5, 2)
+
+[node name="Broken" type="Node3D"]
+
+[node name="Left" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.875, 0, 0)
+mass = 4.0
+
+[node name="PlankVisual" type="CSGBox3D" parent="Left"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
+collision_mask = 0
+size = Vector3(9.7, 0.5, 2)
+material = SubResource("StandardMaterial3D_cbpxf")
+
+[node name="PlankCollision" type="CollisionShape3D" parent="Left"]
+shape = SubResource("BoxShape3D_4162k")
+
+[node name="Right" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.875, 0, 0)
+mass = 4.0
+
+[node name="PlankVisual" type="CSGBox3D" parent="Right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
+collision_mask = 0
+size = Vector3(9.7, 0.5, 2)
+material = SubResource("StandardMaterial3D_cbpxf")
+
+[node name="PlankCollision" type="CollisionShape3D" parent="Right"]
+shape = SubResource("BoxShape3D_4162k")

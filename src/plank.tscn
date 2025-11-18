@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dv82vxui0ealx"]
+
+[ext_resource type="Script" uid="uid://dv2awskx2ugev" path="res://src/break_area.gd" id="1_jrpcv"]
+[ext_resource type="PackedScene" uid="uid://bb83v4oq5r5vt" path="res://src/broken.tscn" id="2_p3eem"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbpxf"]
+albedo_color = Color(0.67756194, 0.5338934, 0.32728875, 1)
+metallic_specular = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p3eem"]
+size = Vector3(19.5, 0.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s3hio"]
+size = Vector3(3.0439453, 2.0048828, 2.6894531)
+
+[node name="Plank" type="RigidBody3D"]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+freeze = true
+
+[node name="PlankVisual" type="CSGBox3D" parent="."]
+collision_mask = 0
+size = Vector3(19.5, 0.5, 2)
+material = SubResource("StandardMaterial3D_cbpxf")
+
+[node name="PlankCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_p3eem")
+
+[node name="BreakArea" type="Area3D" parent="." groups=["ExplodeReact"]]
+script = ExtResource("1_jrpcv")
+broken_scene = ExtResource("2_p3eem")
+
+[node name="Collision" type="CollisionShape3D" parent="BreakArea"]
+shape = SubResource("BoxShape3D_s3hio")

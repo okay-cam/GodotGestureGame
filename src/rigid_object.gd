@@ -86,6 +86,16 @@ func apply_explode_force():
 			if object.find_child("Z-Manager"):
 				object.get_node("Z-Manager").allow()
 			object.apply_impulse(difference.normalized() * (17 - difference.length()) * 1)
+	
+	for area in $ExplodeArea.get_overlapping_areas():
+		
+		if area == self:
+			continue 
+		
+		if area.is_in_group("ExplodeReact"):
+			area.explode_react()
+			continue
+	
 
 func explode_react():
 	explode()
